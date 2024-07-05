@@ -1,5 +1,4 @@
 import { User } from '../entity/auth.entities.';
-
 export class LoginResponseDto {
   user!: User;
   token!: string;

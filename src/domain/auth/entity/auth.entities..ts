@@ -21,7 +21,6 @@ export class User {
     name: 'role',
     type: 'enum',
   })
-
   @Column({
     name: 'status',
     nullable: false,
