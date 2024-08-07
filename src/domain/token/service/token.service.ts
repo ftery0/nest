@@ -28,7 +28,7 @@ export class TokenService {
     const option: JwtSignOptions = {
       expiresIn: this.configService.get('JWT_ACCESS_KEY'),
       issuer: 'hj',
-      subject: 'token',
+      subject: 'accessToken',
     };
 
     return this.jwtService.sign(payload, option);
@@ -40,7 +40,7 @@ export class TokenService {
     };
 
     const option: JwtSignOptions = {
-      expiresIn: this.configService.get('JWT_ACCESS_KEY'),
+      expiresIn: this.configService.get('JWT_REFRESH_KEY'),
       issuer: 'hj',
       subject: 'refreshToken',
     };

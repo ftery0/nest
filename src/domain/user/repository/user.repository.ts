@@ -1,24 +1,11 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { User } from '../entity/user.entities.';
+import { User } from '../entity/user.entity';
 
-// @Injectable()
-// export default class UserService {
-//   constructor(
-//     @InjectRepository(User)
-//     private readonly userRepository: Repository<User>,
-//   ) {}
-//
-//   async login(username: string, password: string): Promise<User | undefined> {
-//     return this.userRepository.findOne({ where: { username, password } });
-//   }
-// }
-
-// noinspection JSDeprecatedSymbols
 @EntityRepository(User)
 export default class UserRepository extends Repository<User> {
   public findById(id: string): Promise<User | undefined> {
-    return this.createQueryBuilder('user')
-      .where('user.id = :id', { id })
+    return this.createQueryBuilder('users')
+      .where('users.id = :id', { id })
       .getOne();
   }
 }

@@ -8,7 +8,6 @@ import BaseResponse from '../../../global/response/base.response';
 @Controller('auth')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
   // @Get()
   // async findAll(): Promise<User[]> {
   //   return this.userService.findAll();

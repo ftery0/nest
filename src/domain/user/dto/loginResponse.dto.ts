@@ -1,12 +1,12 @@
-import { User } from '../entity/user.entities.';
+import { User } from '../entity/user.entity';
 export class LoginResponseDto {
   user!: User;
-  token!: string;
+  accessToken!: string;
   refreshToken!: string;
 
-  constructor(user: User, token: string, refreshToken: string) {
+  constructor(user: User, accessToken: string, refreshToken: string) {
     this.user = user;
-    this.token = token;
+    this.accessToken = accessToken;
     this.refreshToken = refreshToken;
   }
 }
