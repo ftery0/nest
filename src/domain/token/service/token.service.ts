@@ -26,8 +26,8 @@ export class TokenService {
     };
 
     const option: JwtSignOptions = {
-      expiresIn: this.configService.get('JWT_ACCESS_EXPIRE'),
-      issuer: 'ktwiki',
+      expiresIn: this.configService.get('JWT_ACCESS_KEY'),
+      issuer: 'hj',
       subject: 'token',
     };
 
@@ -40,8 +40,8 @@ export class TokenService {
     };
 
     const option: JwtSignOptions = {
-      expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
-      issuer: 'ktwiki',
+      expiresIn: this.configService.get('JWT_ACCESS_KEY'),
+      issuer: 'hj',
       subject: 'refreshToken',
     };
 
@@ -55,7 +55,7 @@ export class TokenService {
       reissuanceDto.refreshToken,
     );
 
-    if (isDiffrentUtil(iss, 'ktwiki') && isDiffrentUtil(sub, 'refreshToken')) {
+    if (isDiffrentUtil(iss, 'hj') && isDiffrentUtil(sub, 'refreshToken')) {
       throw new UnauthorizedException('위조된 토큰입니다.');
     }
 
