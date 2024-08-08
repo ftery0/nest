@@ -8,18 +8,43 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { LoginDto } from '../dto/login.dto';
+import * as bcrypt from 'bcrypt';
 import { LoginResponseDto } from '../dto/loginResponse.dto';
-import { validationData } from '../../../global/util/validationData,util';
+import {
+  existsData,
+  validationData,
+} from '../../../global/util/validationData,util';
 import { TokenService } from '../../token/service/token.service';
+import { SignUpDto } from '../dto/signUp.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly configService: ConfigService,
     private readonly tokenService: TokenService,
   ) {}
+  public async signUp(signUpDto: SignUpDto): Promise<User> {
+    const user: User | undefined = await this.userRepository.findOne({
+      where: { id: signUpDto.id },
+    });
+    if (existsData(user)) {
+      throw new BadRequestException('중복된 ID입니다.');
+    }
 
+    const salt: number = +this.configService.get<number>('HASH_SALT');
+
+    const hashedPassword: string = await bcrypt.hash(signUpDto.password, salt);
+
+    return this.userRepository.save({
+      id: signUpDto.id,
+      password: hashedPassword,
+      name: signUpDto.name,
+      email: signUpDto.email,
+    });
+  }
   public async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user = await this.userRepository.findOne({
       where: { id: loginDto.id },
@@ -29,12 +54,11 @@ export class UserService {
       throw new NotFoundException('ID에 해당하는 계정이 없습니다.');
     }
 
-    // const isCorrectPassword: boolean = await bcrypt.compare(
-    //   user.password,
-    //   loginDto.password,
-    // );
-
-    if (user.password !== loginDto.password) {
+    const isCorrectPassword: boolean = await bcrypt.compare(
+      loginDto.password,
+      user.password,
+    );
+    if (isCorrectPassword === false) {
       throw new BadRequestException('비밀번호가 옳지 않습니다.');
     }
 

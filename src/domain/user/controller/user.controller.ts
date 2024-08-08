@@ -4,6 +4,8 @@ import { UserService } from '../service/user.service';
 import { LoginDto } from '../dto/login.dto';
 import { LoginResponseDto } from '../dto/loginResponse.dto';
 import BaseResponse from '../../../global/response/base.response';
+import { SignUpDto } from '../dto/signUp.dto';
+import { User } from '../entity/user.entity';
 
 @Controller('auth')
 export class UserController {
@@ -29,17 +31,9 @@ export class UserController {
       response,
     );
   }
-
-  // @Put(':id')
-  // async update(
-  //   @Param('id') id: number,
-  //   @Body() user: Partial<User>,
-  // ): Promise<void> {
-  //   await this.userService.update(id, user);
-  // }
-  //
-  // @Delete(':id')
-  // async remove(@Param('id') id: number): Promise<void> {
-  //   await this.userService.remove(id);
-  // }
+  @Post('signup')
+  async signUp(@Body() signUpDto: SignUpDto): Promise<BaseResponse<User>> {
+    const user: User = await this.userService.signUp(signUpDto);
+    return new BaseResponse<User>(HttpStatus.OK, '회원가입 성공', user);
+  }
 }
