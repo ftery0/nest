@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './config/database/database.module';
-import { UserModule } from './domain/user/user.module';
+import { AuthModule } from './domain/auth/auth.module';
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { UserModule } from './domain/user/user.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
-    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

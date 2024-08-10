@@ -12,12 +12,14 @@ import { IToken } from '../../../global/interfaces/Token';
 import { ITokenPayload } from '../../../global/interfaces/TokenPayload';
 import { isDiffrentUtil } from '../../../global/util/comparison.util';
 import ReissuanceDto from '../dto/reissuance.dto';
+import { UserService } from '../../user/service/user.service';
 
 @Injectable()
 export class TokenService {
   constructor(
     private jwtService: JwtService,
     private configService: ConfigService,
+    private userService: UserService,
   ) {}
 
   public generateAccessToken(userId: string): string {
@@ -61,7 +63,12 @@ export class TokenService {
 
     return this.generateAccessToken(userId);
   }
+  public async findUserByAccessToken(token: string) {
+    const decodedToken: IToken = await this.verifyToken(token);
+    const { userId } = decodedToken;
 
+    return this.userService.findById(userId);
+  }
   async verifyToken(token: string): Promise<IToken> {
     try {
       return this.jwtService.verify(token);

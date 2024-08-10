@@ -1,4 +1,4 @@
-import { User } from '../entity/user.entity';
+import { User } from '../../user/entity/user.entity';
 export class LoginResponseDto {
   user!: User;
   accessToken!: string;
