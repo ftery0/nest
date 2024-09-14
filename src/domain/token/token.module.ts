@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TokenService } from './service/token.service';
 import { TokenController } from './controller/token.controller';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,7 +13,7 @@ import { UserModule } from '../user/user.module';
         secret: configService.get<string>('JWT_SECRET'),
       }),
     }),
-    UserModule,
+    forwardRef(() => UserModule),
   ],
   controllers: [TokenController],
   providers: [TokenService],
