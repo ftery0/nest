@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import BaseResponse from '../../../global/response/base.response';
-import ReissuanceDto from '../dto/reissuance.dto';
-import { TokenService } from '../service/token.service';
+import BaseResponse from '../../global/response/base.response';
+import ReissuanceDto from './reissuance.dto';
+import { TokenService } from './token.service';
 
 @Controller('token')
 export class TokenController {

@@ -8,11 +8,11 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
-import { IToken } from '../../../global/interfaces/Token';
-import { ITokenPayload } from '../../../global/interfaces/TokenPayload';
-import { isDiffrentUtil } from '../../../global/util/comparison.util';
-import ReissuanceDto from '../dto/reissuance.dto';
-import { UserService } from '../../user/service/user.service';
+import { IToken } from '../../global/interfaces/Token';
+import { ITokenPayload } from '../../global/interfaces/TokenPayload';
+import { isDiffrentUtil } from '../../global/util/comparison.util';
+import ReissuanceDto from './reissuance.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class TokenService {

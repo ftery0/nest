@@ -4,8 +4,8 @@ import {
   Headers,
   UnauthorizedException,
 } from '@nestjs/common';
-import { TokenService } from '../../token/service/token.service';
-import { UserProfileDto } from '../dto/userProfile.dto';
+import { TokenService } from '../token/token.service';
+import { UserProfileDto } from './dto/userProfile.dto';
 
 @Controller('profile')
 export class ProfileController {

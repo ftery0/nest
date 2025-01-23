@@ -1,4 +1,4 @@
-import { User } from '../entity/user.entity';
+import { User } from '../user.entity';
 
 export class UserProfileDto {
   id: string;
@@ -6,7 +6,7 @@ export class UserProfileDto {
   email: string;
 
   constructor(user: User) {
-    this.id = user.id;
+    this.id = user.userId;
     this.name = user.name;
     this.email = user.email;
   }

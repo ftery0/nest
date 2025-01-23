@@ -1,9 +1,9 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
+import { User } from './user.entity';
 import { TokenModule } from '../token/token.module';
-import { UserService } from './service/user.service';
-import { ProfileController } from './controller/user.controller';
+import { UserService } from './user.service';
+import { ProfileController } from './user.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), forwardRef(() => TokenModule)],
